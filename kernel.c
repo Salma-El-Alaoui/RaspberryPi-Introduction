@@ -1,17 +1,19 @@
-int divide(int dividend, int divisor)
+#include "hw.h"
+#include "sched.h"
+struct ctx_s ctx_ping;
+struct ctx_s ctx_pong;
+struct ctx_s ctx_init;
+void ping()
 {
-int result = 0;
-int remainder = dividend;
-while (remainder >= divisor) {
-result++;
-remainder -= divisor;
+while ( 1 ) {
+switch_to(&ctx_pong);
 }
-return result;
 }
-int compute_volume(int rad)
+void pong()
 {
-int rad3 = rad * rad * rad;
-return divide(4*355*rad3, 3*113);
+while ( 1 ) {
+switch_to(&ctx_ping);
+}
 }
 int kmain( void )
 {
