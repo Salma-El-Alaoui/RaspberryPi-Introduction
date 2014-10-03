@@ -4,7 +4,7 @@
 
 void init_ctx(struct ctx_s* ctx, func_t f, unsigned int stack_size) {
   ctx->pc = f;
-  ctx->sp= phyAlloc_alloc(stack_size)+ stack_size;
+  ctx->sp= (int*) phyAlloc_alloc(stack_size)+ stack_size/sizeof(int);
 }
 
 void __attribute__ ((naked)) switch_to(struct ctx_s* ctx) {

@@ -14,8 +14,8 @@
 typedef void (*func_t) (void);
 
 struct ctx_s {
-  void* pc;
-  void* sp;
+ int* pc;
+ int* sp;
 };
 
 struct ctx_s* current_ctx;
