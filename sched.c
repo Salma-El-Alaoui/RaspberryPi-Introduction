@@ -3,26 +3,27 @@
 #include "phyAlloc.h"
 
 void init_ctx(struct ctx_s* ctx, func_t f, unsigned int stack_size) {
-  (*ctx).pc = f;
-  (*ctx).sp = phyAlloc_alloc(STACK_SIZE);
+  ctx->pc = f;
+  ctx->sp= phyAlloc_alloc(stack_size)+ stack_size;
 }
 
-void switch_to(struct ctx_s* ctx) {
- int functionSp, functionPc;
+void __attribute__ ((naked)) switch_to(struct ctx_s* ctx) {
+	
+	//Save the context
+	__asm("push {r0-r12}");	
+	__asm("mov %0, sp" : "=r"(current_ctx->sp));
+	__asm("mov %0, lr" : "=r"(current_ctx->pc));
+ 
 
-//TODO : 
-//Save the context
-//
-  // we save the previous context -> we get the values stored in sp and lr : TODO
-  current_ctx->sp = functionSp;
-  current_ctx->pc = functionPc;
+  	//we change the context
+  	current_ctx = ctx;
 
-  //we change the context
-  current_ctx = ctx;
-
-  functionSp = current_ctx->sp;
-  functionPc = current_ctx->pc;
-  //TODO: we should move  functionSp to sp and functionPc to pc
+	//restore
+	__asm("mov sp, %0" : : "r"(current_ctx->sp));
+	__asm("mov lr, %0" : : "r"(current_ctx->pc));
+	__asm("pop {r0-r12}");
+	__asm("bx lr");
+	
 
  
 }
