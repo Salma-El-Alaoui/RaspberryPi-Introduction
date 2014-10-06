@@ -3,28 +3,28 @@
 #include <stdlib.h>
 void funcA()
 {
-int cptA = 0;
-while ( 1 ) {
-cptA ++;
-//ctx_switch();
-}
+	int cptA = 0;
+	while ( 1 ) {
+	cptA ++;
+	//ctx_switch();
+	}
 }
 void funcB()
 {
-int cptB = 1;
-while ( 1 ) {
-cptB += 2 ;
-//ctx_switch();
-}
+	int cptB = 1;
+	while ( 1 ) {
+	cptB += 2 ;
+	//ctx_switch();
+	}
 }
 //------------------------------------------------------------------------
 int kmain ( void )
 {
-init_hw();
-create_process(funcB, 0, STACK_SIZE);
-create_process(funcA, 0, STACK_SIZE);
-//start_sched();
-//ctx_switch();
-/* Pas atteignable vues nos 2 fonctions */
-return 0;
+	init_hw();
+	create_process(funcB, 0, STACK_SIZE);
+	create_process(funcA, 0, STACK_SIZE);
+	//start_sched();
+	//ctx_switch();
+	/* Pas atteignable vues nos 2 fonctions */
+	return 0;
 }
