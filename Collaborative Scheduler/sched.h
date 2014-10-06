@@ -21,19 +21,12 @@ struct pcb_s {
 	void * args;
 	int* pc;
 	int* sp;
-	pcb_s * previous;
-	pcb_s * next;
+	struct pcb_s * next;
 
 };
 
 
-struct ctx_s* current_ctx;
-
-void init_ctx(struct ctx_s* ctx, func_t f, unsigned int stack_size);
-
-void __attribute__ ((naked))switch_to(struct ctx_s* ctx);
-
-int create_process(func_t f, void *args, unsigned int stack_size);
+void create_process(func_t f, void *args, unsigned int stack_size);
 void __attribute__ ((naked)) ctx_switch();
 
 
