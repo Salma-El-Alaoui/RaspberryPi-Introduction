@@ -16,6 +16,7 @@ typedef void (*func_t) (void);
 typedef enum {NEW, READY, RUNNING, WAITING, TERMINATED} process_state;
 
 struct pcb_s {
+	int pid;
 	process_state pstate;
 	func_t function;
 	void * args;
